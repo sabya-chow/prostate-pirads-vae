@@ -4,6 +4,8 @@ Built for **Uncommon Hacks 2026** — **Social Impact Track**.
 
 **Live app:** https://huggingface.co/spaces/sabyachow/prostate-pirads-vae
 
+**Demo video:** https://youtu.be/gkh1b0rbIvw
+
 This project is a research prototype that looks at prostate scan images and estimates how suspicious the scan appears for clinically important prostate cancer.
 
 In simple terms:
