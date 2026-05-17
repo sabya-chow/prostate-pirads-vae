@@ -28,7 +28,10 @@ class ProstatePIRADSPredictor:
                 "Run the updated notebook training cells to create prostate_pirads_vae.pt."
             )
 
-        checkpoint = torch.load(self.model_path, map_location=self.device)
+        try:
+            checkpoint = torch.load(self.model_path, map_location=self.device, weights_only=False)
+        except TypeError:
+            checkpoint = torch.load(self.model_path, map_location=self.device)
         self.class_names.update(checkpoint.get("class_names", {}))
         self.model = build_model_from_checkpoint(checkpoint).to(self.device)
         self.model.eval()
