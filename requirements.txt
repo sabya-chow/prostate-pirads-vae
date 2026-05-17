@@ -1,0 +1,10 @@
+gradio>=4.0
+numpy<2
+pandas
+pillow
+pydicom
+torch
+scikit-learn
+matplotlib
+seaborn
+jupyter

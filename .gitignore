@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+
+# OS/editor noise
+.DS_Store
+.Rhistory
+.vscode/
+.idea/
+
+# Local environments
+.venv/
+venv/
+env/
+.env
+
+# Raw medical images / bulky data
+DICOMS/
+PROSTATE_MRI/
+data/raw/
+data/labels/*.csv
+*.dcm
+*.nii
+*.nii.gz
+
+# Temporary uploads and generated outputs
+uploads/
+outputs/
+*.log
+
+# Keep the small demo checkpoint currently included, but ignore future large checkpoints.
+*.ckpt
+*.pth
+!app/model/prostate_pirads_vae.pt
