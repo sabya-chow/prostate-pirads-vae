@@ -72,6 +72,7 @@ with gr.Blocks(title="Prostate MRI PI-RADS Predictor") as demo:
         fn=analyze_patient,
         inputs=[patient_files],
         outputs=[prediction, interpretation, class_probabilities, slice_summary],
+        api_name="analyze_patient",
     )
 
 
