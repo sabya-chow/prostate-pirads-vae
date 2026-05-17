@@ -1,8 +1,8 @@
 # Prostate MRI PI-RADS Predictor
 
-Research prototype for predicting patient-level PI-RADS from prostate MRI slices using a physics-aware variational autoencoder.
-
 Built for **Uncommon Hacks 2026**.
+
+This project is a research prototype that predicts a patient-level **PI-RADS risk score** from prostate MRI slices. The goal is to support earlier, more consistent prostate cancer risk assessment from MRI, while keeping the model interpretable enough to explain what it is seeing.
 
 ## Team
 
@@ -11,13 +11,53 @@ Built for **Uncommon Hacks 2026**.
 - Jenitha Patel — jenithapatel@uchicago.edu
 - Akshaj Chandwani — akshajchandwani@uchicago.edu
 
+## Problem Statement
+
+Every year, many men are sent for prostate biopsy after elevated PSA screening or suspicious MRI findings. The clinical problem is that biopsy is invasive, expensive, stressful, and often unnecessary. In the VERDICT MRI study, Singh et al. (2022) reported that multiparametric MRI can produce a high false-positive burden, meaning many suspicious-looking cases do not turn out to be clinically significant cancer.
+
+Our project addresses that gap with an AI-assisted MRI risk scoring workflow:
+
+```text
+prostate MRI images -> slice-level risk estimates -> patient-level PI-RADS prediction
+```
+
+Instead of relying only on visual image appearance, the model learns compact MRI representations from multiple sequences: T2, ADC, and calculated high-b-value diffusion imaging. These sequences capture complementary biological signals:
+
+- **T2-weighted MRI** shows prostate anatomy and gland structure.
+- **ADC** reflects water diffusion restriction, often linked to dense or suspicious tissue.
+- **BVAL/B1500 diffusion imaging** highlights areas with strong diffusion-weighted signal.
+
+The model then predicts PI-RADS 1-5 probabilities for each slice and reports the highest-risk patient-level estimate. This makes the tool a triage-style research prototype: it is not replacing a radiologist, but it shows how AI could help prioritize suspicious exams and reduce unnecessary follow-up.
+
+## Why This Matters
+
+Current prostate MRI interpretation depends on expert radiology review. That creates three practical challenges:
+
+- **False positives** can lead to unnecessary biopsies.
+- **Reader variability** can make risk scoring inconsistent across settings.
+- **Access bottlenecks** can delay review where expert prostate MRI readers are limited.
+
+Our prototype explores whether a physics-aware variational model can learn a stable representation of prostate MRI and convert it into PI-RADS risk probabilities.
+
+## What The App Does
+
 The app expects three aligned MRI channels per slice:
 
-- `AX_T2`
-- `AX_DIFFUSION_ADC`
-- `AX_DIFFUSION_CALC_BVAL` / `B1500`
+```text
+AX_T2
+AX_DIFFUSION_ADC
+AX_DIFFUSION_CALC_BVAL / B1500
+```
 
-It preprocesses the channels into a 3-channel tensor, predicts slice-level PI-RADS probabilities, and reports the patient-level score from the highest-risk slice.
+It preprocesses the channels into a 3-channel image tensor, predicts slice-level PI-RADS probabilities, and reports the patient-level score from the highest-risk slice.
+
+Output includes:
+
+- predicted patient PI-RADS score
+- model confidence
+- selected highest-risk slice
+- class probability table
+- slice-level summary table
 
 ## Project Layout
 
