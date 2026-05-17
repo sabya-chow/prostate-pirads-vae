@@ -112,11 +112,11 @@ def physics_aware_vae_loss(
 ):
     recon_loss = F.mse_loss(recon_x, x)
     kl_loss = -0.5 * torch.mean(1 + logvar - mu.pow(2) - logvar.exp())
-    # cls_loss = F.cross_entropy(logits, target.long().view(-1), weight=class_weights)
+    cls_loss = F.cross_entropy(logits, target.long().view(-1), weight=class_weights)
 
     adc_mean = recon_x[:, 1].mean(dim=(1, 2))
     b1500_mean = recon_x[:, 2].mean(dim=(1, 2))
-    # consistency_loss = torch.mean((adc_mean - b1500_mean) ** 2)
+    consistency_loss = torch.mean((adc_mean - b1500_mean) ** 2)
 
     total = recon_loss + beta * kl_loss + alpha * cls_loss + 0.1 * consistency_loss
     return total, {

@@ -193,6 +193,22 @@ python app/app.py
 
 Then open the local Gradio URL printed in the terminal.
 
+For Hugging Face Spaces, the repository also includes a root-level `app.py` wrapper. Spaces can run that directly.
+
+## Deploy On Hugging Face Spaces
+
+1. Create a Hugging Face account.
+2. Go to `https://huggingface.co/new-space`.
+3. Create a new Space with:
+   - SDK: `Gradio`
+   - Hardware: CPU basic is enough for the demo
+   - Visibility: Public or Private
+4. Upload or push this repository to the Space.
+
+Hugging Face Spaces will install `requirements.txt` and run the root `app.py`.
+
+Do not upload real NYU fastMRI data to the Space. Use the included synthetic ZIP only for interface testing.
+
 ## Upload Format
 
 Upload either a ZIP file or multiple files where folders, filenames, or DICOM metadata contain sequence names:
@@ -205,6 +221,14 @@ patient_001/
 ```
 
 PNG/JPG/TIFF files can be used for a quick demo if their filenames include `T2`, `ADC`, and `BVAL` or `B1500`.
+
+For a safe test upload, use:
+
+```text
+app/sample_uploads/synthetic_patient_demo.zip
+```
+
+This sample is synthetic and only checks the app workflow. It is not real patient data and has no clinical meaning.
 
 ## Technical Model Summary
 
